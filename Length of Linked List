@@ -1,3 +1,12 @@
+Statement : 
+Given the head of a singly linked list of integers, find and return its length.
+
+Sample Input 1 :
+3 4 5 2 6 1 9 
+
+Sample Output 1 :
+7
+
 /****************************************************************
 
     Following is the class structure of the Node class:
