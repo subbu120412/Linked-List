@@ -1,3 +1,15 @@
+Statement : 
+You are given the head of linked list 'list' and size 'N'
+You need to insert the given newValue at head node and return the new head.
+
+Sample Input : 
+N =4 , newValue = 0
+Linked list : 4,3,6,5
+Sample Output : 
+0,4,3,6,5
+
+*********************************************************************************
+
 /**
  * Definition of linked list
  * class Node {
