@@ -1,3 +1,20 @@
+Statement : 
+For a given a singly linked list of integers and a position 'i', print the node data at the 'i-th' position.
+
+Sample Input 1 :
+LL = 3 4 5 2 6 1 9 
+i = 3
+Sample Output 1 :
+2
+Sample Input 2 :
+LL = 3 4 5 2 6 1 9
+i = 0
+LL = 9 8 4 0 7 8 
+i = 3
+Sample Output 2 :
+3
+0
+
 /****************************************************************
  
     Following is the class structure of the Node class:
