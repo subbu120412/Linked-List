@@ -1,0 +1,62 @@
+Statement : 
+You have been given a singly linked list of integers along with an integer 'N'. 
+Write a function to append the last 'N' nodes towards the front of the singly linked
+list and returns the new head to the list.
+
+/**************************************************************** 
+    Following is the class structure of the Node class:
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+*****************************************************************/
+Approach 1 : Using fast & slow pointers. O(N) time O(1) space
+Node *appendLastNToFirst(Node *head, int n){
+	if(!head || n==0) return head;
+    Node* fast = head;
+	Node* slow = head;
+	// moving fast pointer to N Nodes.
+	for(int i=0; i<n; i++){
+		fast = fast->next;
+	}
+//Moving fast pointer to till end along with slow pointer
+//so we can find slow pointer points the node to be split.
+	while(fast->next != NULL){
+		fast = fast->next;
+		slow = slow->next;
+	}
+//reassinging linked list.
+	fast->next = head;
+	head = slow->next;
+	slow->next = NULL;
+	return head;
+}
+*****************************************************************************
+Approach 2 : Using total length splitng the array O(2N)time O(1) space
+
+Node *appendLastNToFirst(Node *head, int n){
+    //Write your code here
+	if(n==0 || !head) return head;
+	int len = 1;
+	Node* temp = head;
+	while(temp->next != NULL){
+		len++;
+		temp = temp->next;
+	}
+	// finding a node where to split
+	Node* temp2 = head;
+	for(int i=1; i<len-n; i++){
+		temp2 = temp2->next;
+	}
+	temp->next = head;
+	head = temp2->next;
+	temp2->next = NULL;
+	return head;
+}
