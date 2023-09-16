@@ -1,3 +1,14 @@
+Statement : 
+You are given the head of linked list 'list' and size 'N'
+You need to delete the last node and return the head.
+
+Sample Input : 
+N =4 
+Linked list : 4,3,6,5
+Sample Output : 
+4,3,6
+
+*********************************************************************************
 /**
  * Definition for singly-linked list.
  * class Node {
