@@ -3,6 +3,13 @@ You have been given a singly linked list of integers along with an integer 'N'.
 Write a function to append the last 'N' nodes towards the front of the singly linked
 list and returns the new head to the list.
 
+Sample Input :
+1
+10 6 77 90 61 67 100 -1
+4
+Sample Output  :
+90 61 67 100 10 6 77 
+
 /**************************************************************** 
     Following is the class structure of the Node class:
         class Node
