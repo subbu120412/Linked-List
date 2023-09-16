@@ -1,0 +1,41 @@
+/****************************************************************
+ 
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+
+Node* InsertNode(Node *head, int pos, Node* newNode){
+	if(!head) return newNode;
+	Node* temp = head;
+	int len = 0;
+	if(len == pos){
+		newNode->next = temp;
+		return newNode;
+	}	
+/*
+	while(temp != NULL && len<pos-1){
+		temp = temp->next;
+		len++;
+	}
+	newNode->next = temp->next;
+	temp->next = newNode;
+	return head;
+*/
+	// Recursive 
+	Node* updatedHead = InsertNode(head->next, pos-1, newNode);
+	head->next = updatedHead;
+	return head;
+}
+
