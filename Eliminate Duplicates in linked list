@@ -1,0 +1,65 @@
+Statement : 
+You have been given a singly linked list of integers where the elements are sorted in ascending order.
+Write a function that removes the consecutive duplicate values such that the given
+list only contains unique elements and returns the head to the updated list.
+
+Sample Input 1 :
+LL = 1 2 3 3 3 3 4 4 4 5 5 7 
+Sample Output 1 :
+1 2 3 4 5 7 
+Sample Input 2 :
+LL = 10 20 30 40 50 
+LL = 10 10 10 10 
+Sample Output 2 :
+10 20 30 40 50
+10
+
+/**************************************************************** 
+    Following is the class structure of the Node class:
+        class Node        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+*****************************************************************/
+//Approach : 1
+// While traversing the linked list, keep temp pointer at same node untill
+// we find a unique element in next node. Then assign it in temp->next.
+// O(n) time & O(1) space.
+
+Node *removeDuplicates(Node *head){
+    //Write your code here
+	if(!head) return head;
+	Node* temp = head;
+	while(temp->next != NULL){
+		if(temp->data == temp->next->data){
+			temp->next = temp->next->next;
+		}else{
+			temp = temp->next;
+		}		
+	}
+	return head;
+}
+
+//Approach : 2 
+// While traversing the linked list, if we encounter same element keep moving temp pointer to next untill
+// we find a unique element in next node. Then assign temp to prevNode->next.
+// O(n) time & O(1) space.
+
+Node *removeDuplicates(Node *head){
+	Node* temp = head;
+	while(temp != NULL){
+		Node* prevNode = temp;
+		while(temp->next && temp->data == temp->next->data){
+			temp = temp->next;
+		}
+		prevNode->next = temp->next;
+		temp = temp->next;
+	}
+	return head;
+}
