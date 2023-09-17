@@ -34,15 +34,14 @@ Approach 1 :
 //O(n) time O(1) space
 void printReverse(Node *head){
     if(head){
-	Node* prev = head;
-	Node* curr = prev->next;
+	Node* prev = NULL;
+	Node* curr = head;
 	while(curr !=NULL){
 		Node* temp = curr->next;
 		curr->next = prev;
 		prev = curr;
 		curr = temp;
 	}
-	head->next = NULL;
         while (prev) {
                 cout << prev->data << " ";
                 prev = prev->next;
