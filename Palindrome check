@@ -1,0 +1,65 @@
+Statement : 
+You have been given a head to a singly linked list of integers. 
+Write a function check to whether the list given is a 'Palindrome' or not.
+
+Sample Input 1 :
+LL = 9 2 3 3 2 9 
+Sample Output 1 :
+true
+
+Sample Input 2 :
+LL = 0 2 3 2 5
+LL = NULL
+Sample Output 2 :
+false
+true
+
+/****************************************************************
+ 
+    Following is the class structure of the Node class:
+        class Node        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+// Split the list into two halfs. reverse second half. compare each element in two halfs.
+// O(n) time O(1) space
+
+bool isPalindrome(Node *head){
+	if(!head || !head->next) return 1;
+	//finding second half head node.
+	Node* fastNode = head;
+	Node* secondHead = head;
+	while(fastNode&&fastNode->next){
+		fastNode = fastNode->next->next;
+		secondHead = secondHead->next;
+	}
+	//For odd number elements secondHead points to middle node
+	// fast head points to tail node.
+	// For Even Number of elements secondHead directly points to second half.
+	//Fast head points to null.
+	if(fastNode) secondHead = secondHead->next;
+	//Now reverse the second half.
+	Node* currNode = secondHead; 
+	Node* prevNode = NULL;// prevNode will have reversed second half head.
+	while(currNode){
+		Node* temp = currNode->next;
+		currNode->next = prevNode;
+		prevNode = currNode;
+		currNode = temp;
+	}
+	// comparing reversed second half && first half.
+	while(prevNode){
+		if(prevNode->data != head->data) return 0;
+		prevNode = prevNode->next;
+		head = head->next;
+	}
+	return 1;
+}
