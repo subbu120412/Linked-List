@@ -1,0 +1,76 @@
+Given a singly linked list of integers, sort it using 'Merge Sort.'
+No need to print the list, it has already been taken care. Only return the new head to the list.
+
+Sample Input 1 :1
+LL = 10 9 8 7 6 5 4 3 
+Sample Output 1 :
+ 3 4 5 6 7 8 9 10 
+
+ Sample Input 2 :
+10 -5 9 90 5 67 1 89 
+Sample Output 2 :
+-5 1 5 9 10 67 89 90 
+
+/****************************************************************
+ 
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+// Merge sort works on devide and concure rule
+// we have to split the the linked list into two half recursively untill there is only one element in LL.
+// sort those two splitted linked list and return sorted LL head pointer.
+
+Node *mergeSort(Node *head){
+// Base case : return head if only one element in LL
+	if(!head || !head->next) return head;
+// Finding mid point of LL
+	Node* fastNode = head->next;
+	Node* slowNode = head;
+	while(fastNode && fastNode->next){
+		fastNode = fastNode->next->next;
+		slowNode = slowNode->next;
+	}
+//Splitting the LL
+	Node* head2 = slowNode->next;
+	slowNode->next = NULL;
+	Node* mergedHead1 = mergeSort(head);
+	Node* mergedHead2 = mergeSort(head2);
+//Merging the two splitted LL
+	Node* finalHead = NULL;
+	Node* finalTail = NULL;
+	if(mergedHead1->data < mergedHead2->data){
+		finalHead = mergedHead1;
+		finalTail = mergedHead1;
+		mergedHead1 = mergedHead1->next;
+	}else{
+		finalHead = mergedHead2;
+		finalTail = mergedHead2;
+		mergedHead2 = mergedHead2->next;
+	}
+	while(mergedHead1 && mergedHead2){
+			if(mergedHead1->data < mergedHead2->data){
+				finalTail->next = mergedHead1;
+				finalTail = finalTail->next;
+				mergedHead1 = mergedHead1->next;
+			}else{
+				finalTail->next = mergedHead2;
+				finalTail = finalTail->next;
+				mergedHead2 = mergedHead2->next;
+			}
+	}
+	if(!mergedHead2) finalTail->next = mergedHead1;
+	if(!mergedHead1) finalTail->next = mergedHead2;
+	return finalHead;
+}
