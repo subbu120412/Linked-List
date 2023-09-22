@@ -1,0 +1,71 @@
+Statement : 
+Even after Odd Linked List
+Send Feedback
+For a given singly linked list of integers, arrange the elements such that
+all the even numbers are placed after the odd numbers. The relative order of the odd and even terms should remain unchanged.
+No need to print the list, it has already been taken care. Only return the new head to the list.
+
+Sample Input 1 :
+LL = 1 4 5 2 
+Sample Output 1 :
+1 5 4 2 
+Sample Input 2 :
+LL = 1 11 3 6 8 0 9 -1
+LL = 10 20 30 40 -1
+Sample Output 2 :
+1 11 3 9 6 8 0
+10 20 30 40
+
+/****************************************************************
+ 
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+
+Node *evenAfterOdd(Node *head){
+	if(!head || !head->next)return head;
+	Node* evenTail = NULL, *evenHead = NULL;
+	Node* oddHead = NULL, *oddTail = NULL;
+	while(head){
+		if(head->data%2 == 0){
+//finding even head, tail & updating even list
+			if(!evenHead && !evenTail){
+				evenHead = head;
+				evenTail = head;
+			}else{
+				evenTail->next = head;
+				evenTail = head;
+			}
+//finding odd head, tail & updating odd list.
+		}else{
+			if(!oddTail && !oddHead){
+				oddHead = head;
+				oddTail = head;
+			}else{
+				oddTail->next = head;
+				oddTail = head;
+			}
+		}
+		head = head->next;
+	}
+//if odd list is not present returning even head.
+	if(!oddHead) return evenHead;
+//updating even list head in odd tail.
+	oddTail->next = evenHead;
+//if even list is existed updating even tail to null
+//otherwise it will cause infinite loop.
+	if(evenHead)evenTail->next = NULL;
+	return oddHead;
+}
