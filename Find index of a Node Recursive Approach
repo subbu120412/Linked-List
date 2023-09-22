@@ -1,0 +1,49 @@
+Statement : 
+Given a singly linked list of integers and an integer n, find and return the index for the first occurrence of 'n' in the linked list. -1 otherwise.
+Follow a recursive approach to solve this.
+Assume that the Indexing for the linked list always starts from 0.
+
+Sample Input 1 :
+LL = 3 4 5 2 6 1 9 
+n = 100
+Sample Output 1 :
+-1
+
+Sample Input 2 :
+LL = 10 20010 30 400 600 
+n = 200
+LL = 100 200 300 400 9000 -34 
+n = -34
+Sample Output 2 :
+1
+5
+
+/**************************************************************** 
+    Following is the class structure of the Node class:
+        class Node        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+
+int findNodeRec(Node *head, int n){
+	if(!head) return -1;
+	else if (head->data == n) return 0;
+    int index = findNodeRec(head->next, n);
+	if(index == -1) return index;
+	return index+1;
+	// int index = 0;
+	// while(head){
+	// 	if(head->data == n) return index;
+	// 	head = head->next;
+	// 	index +=1;
+	// }
+	// return -1;
+}
