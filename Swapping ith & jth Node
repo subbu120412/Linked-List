@@ -1,0 +1,89 @@
+Statement : 
+You have been given a singly linked list of integers along with two integers, 'i,' and 'j.' 
+Swap the nodes that are present at the 'i-th' and 'j-th' positions.
+Remember, the nodes themselves must be swapped and not the datas.
+No need to print the list, it has already been taken care. Only return the new head to the list.
+
+Sample Input 1 :
+LL = 3 4 5 2 6 1 9 
+i=3, j=4
+Sample Output 1 :
+3 4 5 6 2 1 9 
+
+Sample Input 2 :
+LL = 10 20 30 40 
+i=1, j=2
+LL = 70 80 90 25 65 85 90 
+i=0, j=6
+ Sample Output 2 :
+10 30 20 40 
+90 80 90 25 65 85 70 
+
+/**************************************************************** 
+    Following is the class structure of the Node class:
+        class Node{
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+
+Node *swapNodes(Node *head, int i, int j){
+//If same nodes to be swapped return same LL.
+	if(i == j) return head;
+//finding ith, jth nodes & its previus Nodes.
+	Node* curr = head,  *ithPrevNode = NULL, *jthPrevNode = NULL, *ithNode = NULL, *jthNode = NULL;
+	int count = 0;
+	while(curr){
+		if(count == i-1) ithPrevNode = curr;
+		if(count == j-1) jthPrevNode = curr;
+		count++;
+		curr = curr->next;
+	}
+	ithNode = ithPrevNode->next;
+	jthNode = jthPrevNode->next;
+//If ith previous node is null, ith index is 0, so jth value become head.
+//if ith previous node is not null put jth value in ith previous next.
+	if(ithPrevNode){
+		ithPrevNode->next = jthNode;
+	}else{
+		head = jthNode;
+	}
+//If jth previous node is null, jth index is 0, so ith value become head.
+//if jth previous node is not null put ith value in jth previous next.
+	if(jthPrevNode){
+		jthPrevNode->next = ithNode;
+	}else{
+		head = ithNode;
+	}
+//adjusting remaining pointers.
+	Node* currFirstNode = jthNode->next;
+	jthNode->next = ithNode->next;
+	ithNode->next = currFirstNode;
+	return head;
+}
+
+Approach 2 : 
+Swaping the values directly instead of adjusting pointers.
+
+Node *swapNodes(Node *head, int i, int j){
+	Node* temp = head;
+	Node* ithNode = NULL, *jthNode = NULL;
+	int count = 0;
+	while(temp){
+		if(count == i) ithNode = temp;
+		if(count == j) jthNode = temp;
+		count++;
+		temp = temp->next;
+	}
+	int value = ithNode->data;
+	ithNode->data = jthNode->data;
+	jthNode->data = value;
+	return head;
+}
