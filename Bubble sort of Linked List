@@ -1,0 +1,52 @@
+/****************************************************************
+ 
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+
+Node *bubbleSort(Node *head){
+	if(!head || !head->next) return head;
+	Node* temp = head;
+	int bubbleCount = 0;
+	while(temp->next){
+		temp = temp->next;
+		bubbleCount++;
+	}
+	for(int i=0; i<bubbleCount; i++){
+		Node* prev = NULL, *curr = head, *next = curr->next;
+		while(next){
+			if(!prev && curr->data > next->data){
+				curr->next = next->next;
+				next->next = curr;
+				head = next;
+				next = curr->next;
+				prev = head;
+			}
+			else if(curr->data <= next->data){
+				prev = curr;
+				curr = next;
+				next = next->next;
+			}
+			else{
+				prev->next = next;
+				curr->next = next->next;
+				next->next = curr;
+				prev = next;
+				next = curr->next;
+			}
+		}
+	}
+	return head;
+}
